@@ -8,7 +8,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     post_to_klog_server(author_id, params['text'])
     respond_with :message, text: "I have forwarded you complaint to a CM and you will recieve a response shortly."
     respond_with :message, text: "Cheer up :)"
-    respond_with :photo, photo: File.open("#{Rails.root}/smiling-bulldog.jpg")
+    respond_with :photo, photo: File.open("#{Rails.root}/#{[1,2,3].sample}.jpg")
   end
 
   private
