@@ -34,8 +34,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
        region: ENV['AWS_REGION']
      )
 
-      s3 = Aws::S3::Resource.new(client: aws_client)
-
       s3 = Aws::S3::Resource.new(
         credentials: Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY']),
         region: ENV['AWS_REGION']
@@ -47,7 +45,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       obj.upload_file(raw.file.path, { acl: 'public-read' })
       asset_url = obj.public_url
 
-      post_to_klog_server(author_id: author_id, author_name: author_name, asset_url: asset_url)
+      caption = params['caption']
+
+      post_to_klog_server(author_id: author_id, author_name: author_name, asset_url: asset_url, text: caption)
     end
 
     respond_with :message, text: "I have forwarded your complaint to a CM and you will recieve a response shortly."
