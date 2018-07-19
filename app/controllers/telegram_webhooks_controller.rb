@@ -51,7 +51,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     end
 
     respond_with :message, text: "I have forwarded your complaint to a CM and you will recieve a response shortly."
+    sleep(1)
     respond_with :message, text: "Cheer up :)"
+    sleep(1)
     respond_with :photo, photo: File.open("#{Rails.root}/#{[1,2,3].sample}.jpg")
   end
 
